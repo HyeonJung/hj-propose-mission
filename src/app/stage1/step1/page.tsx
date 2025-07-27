@@ -132,11 +132,11 @@ export default function Stage1() {
                                             localStorage.setItem('favorScore', '2');
                                             setFloatingText('+2');
                                         } else if (idx === 1) {
-                                            localStorage.setItem('favorScore', '3');
-                                            setFloatingText('+3');
+                                            localStorage.setItem('favorScore', '10');
+                                            setFloatingText('+10');
                                         } else if (idx === 2) {
-                                            localStorage.setItem('favorScore', '5');
-                                            setFloatingText('+5');
+                                            localStorage.setItem('favorScore', '20');
+                                            setFloatingText('+20');
                                         }
                                         setTimeout(() => setFloatingText(null), 1000);
                                     }
@@ -153,7 +153,10 @@ export default function Stage1() {
                     <p className="mt-2">{displayedText}</p>
                 )}
                 {!Array.isArray(currentLine.line) && (
-                    <p className="mt-4 text-right text-sm text-gray-300">클릭하여 계속</p>
+                    <div className="mt-4 text-right text-sm text-gray-300 flex items-center justify-end gap-2">
+                        <span className="text-lg">🖱️</span>
+                        <span>CLICK</span>
+                    </div>
                 )}
             </div>
 
