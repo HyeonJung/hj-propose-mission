@@ -4,9 +4,23 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import MinjiHyeonjoong from '/images/minji-hyeonjoong.png';
+import { useRef } from 'react';
 
 export default function StartPage() {
     const router = useRouter();
+    const clickSoundRef = useRef<HTMLAudioElement | null>(null);
+
+    const handleStartClick = () => {
+        if (clickSoundRef.current) {
+            clickSoundRef.current.play().catch(err => {
+                console.warn('Sound play blocked:', err);
+            });
+        }
+        setTimeout(() => {
+            router.push('/stage1');
+        }, 300);
+    };
+
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-pink-100 via-pink-50 to-pink-200 text-center p-8 font-[sans-serif] relative overflow-hidden">
@@ -52,16 +66,19 @@ export default function StartPage() {
                 transition={{ delay: 1.2 }}
                 className="bg-white/70 backdrop-blur-md border border-pink-200 rounded-xl p-4 max-w-xl text-sm text-pink-900 shadow-inner z-10"
             >
-                <p className="mb-2 font-semibold">💬 시스템 메시지</p>
+                <p className="mb-2 font-semibold">💬 게임목표</p>
                 <p>당신은 민지입니다. 지금부터 현중이를 유혹해 프로포즈를 이끌어내야 합니다.</p>
                 <p>선택지를 잘 골라서 해피엔딩을 만들어보세요!</p>
             </motion.div>
+
+            {/* 효과음 오디오 */}
+            <audio ref={clickSoundRef} src="/audio/click.wav" preload="auto" />
 
             <motion.button
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 2, duration: 0.4 }}
-                onClick={() => router.push('/stage1')}
+                onClick={handleStartClick}
                 className="bg-pink-400 hover:bg-pink-500 text-white px-10 py-5 rounded-full text-xl shadow-lg mt-10 animate-bounce z-10"
             >
                 🎮 게임 시작하기

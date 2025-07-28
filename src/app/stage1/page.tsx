@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
@@ -13,6 +13,8 @@ const sentences = [
 
 export default function Stage1() {
   const router = useRouter();
+  const clickSoundRef = useRef<HTMLAudioElement | null>(null);
+  const typingSoundRef = useRef<HTMLAudioElement | null>(null);
   const [currentSentence, setCurrentSentence] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [charIndex, setCharIndex] = useState(0);
@@ -23,12 +25,12 @@ export default function Stage1() {
 
     if (charIndex < sentences[currentSentence].length) {
       const timeout = setTimeout(() => {
+        if (typingSoundRef.current) {
+          typingSoundRef.current.currentTime = 0;
+          typingSoundRef.current.play();
+        }
         setDisplayedText((prev) => prev + sentences[currentSentence][charIndex]);
         setCharIndex((prev) => prev + 1);
-
-        // const audio = new Audio('/sounds/typing.mp3');
-        // audio.volume = 0.2;
-        // audio.play();
       }, 50);
       return () => clearTimeout(timeout);
     } else {
@@ -37,6 +39,9 @@ export default function Stage1() {
   }, [charIndex, currentSentence]);
 
   const handleClick = () => {
+    if (clickSoundRef.current) {
+      clickSoundRef.current.play();
+    }
     if (showNextPrompt) {
       setCurrentSentence((prev) => prev + 1);
       setDisplayedText('');
@@ -47,6 +52,8 @@ export default function Stage1() {
 
   return (
     <div onClick={handleClick} className="min-h-screen bg-black text-white font-mono flex flex-col justify-center items-center px-6 py-20 text-lg tracking-wide space-y-6">
+      <audio ref={clickSoundRef} src="/audio/click.wav" preload="auto" />
+      <audio ref={typingSoundRef} src="/audio/typing.mp3" preload="auto" />
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
