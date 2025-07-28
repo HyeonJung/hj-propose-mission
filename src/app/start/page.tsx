@@ -57,7 +57,7 @@ export default function StartPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-lg md:text-xl mb-8 z-10"
             >
-                현중이를 꼬셔서 프로포즈를 하게 유도하세요!
+                호감도를 상승시켜 프로포즈를 하게 유도하세요!
             </motion.p>
 
             <motion.div
@@ -66,9 +66,10 @@ export default function StartPage() {
                 transition={{ delay: 1.2 }}
                 className="bg-white/70 backdrop-blur-md border border-pink-200 rounded-xl p-4 max-w-xl text-sm text-pink-900 shadow-inner z-10"
             >
-                <p className="mb-2 font-semibold">💬 게임목표</p>
-                <p>당신은 민지입니다. 지금부터 현중이를 유혹해 프로포즈를 이끌어내야 합니다.</p>
-                <p>선택지를 잘 골라서 해피엔딩을 만들어보세요!</p>
+                <p className="mb-2 font-semibold">🎮 게임목표</p>
+                <p>당신은 민지입니다.</p>
+                <p>지금부터 현중의 호감도를 상승시켜 프로포즈를 이끌어내야 합니다.</p>
+                <p>기억을 잘 되살려 추억 속 선택지를 골라 해피엔딩을 만들어보세요!</p>
             </motion.div>
 
             {/* 효과음 오디오 */}

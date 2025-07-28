@@ -5,11 +5,10 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
 const sentences = [
-  '2019년 8월, 여름...',
-  '오늘도 어김없이 난 오아시스로 출근을 한다.',
-  '장지 물류센터, 따가운 햇살, 그리고 반복되는 하루.',
-  '오늘도 열심히 일해보자!',
-  '[사무실로 입장해주세요]',
+  '2020년 12월 25일',
+  '오늘은 둘이서 맞는 첫 크리스마스!',
+  '즐거운 데이트를 하러 가자!',
+  '[데이트 복장을 골라 잠실로 이동해주세요]',
 ];
 
 export default function Stage1() {
@@ -81,7 +80,7 @@ export default function Stage1() {
           className="absolute inset-0 flex items-center justify-center bg-black z-50"
         >
           <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-wider">
-            EPISODE 01. 첫만남
+            EPISODE 02. Christmas 🎄
           </h1>
         </motion.div>
       )}
@@ -117,11 +116,11 @@ export default function Stage1() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              onClick={() => router.push('/stage1/step1')}
+              onClick={() => router.push('/stage2/step1')}
               className="mt-10 px-8 py-4 text-xl font-semibold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 relative overflow-hidden group animate-pulse ring-2 ring-white ring-opacity-20"
             >
               <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-full blur-lg"></span>
-              <span className="relative z-10">사무실 들어가기</span>
+              <span className="relative z-10">옷 고르기</span>
             </motion.button>
           )}
         </div>

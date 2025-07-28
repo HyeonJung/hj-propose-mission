@@ -7,11 +7,9 @@ import FavorBar from '@/components/FavorBar';
 import FavorFloatingText from '@/components/FavorFloatingText';
 
 const dialogScript = [
-    { name: '최팀장', line: '자 다들 주목~~', image: '/images/woosik-default.png' },
-    { name: '최팀장', line: '오늘 지어소프트에서 개발자가 왔으니까 민지씨가 잘 챙겨줘요~', image: '/images/woosik-default.png' },
-    { name: '현중', line: '안녕하세요... 잘 부탁드립니다.', image: '/images/hyeonjung-default.png' },
-    { name: '[SYSTEM]', line: '새로온 개발자 윤현중의 첫인상은?', image: '' },
-    { name: '민지', line: ['(완전 개발자같이 생겼네;;)', '(첫눈에 반했다. 바로 꼬셔야겠다.)', '(신기하게 생겼다. 👽)'], image: '/images/minji-default.png' },
+    { name: '민지', line: '오늘 엄청 춥다 >_<', image: '/images/minji-default.png' },
+    { name: '민지', line: '오늘 무슨 옷을 입을까?', image: '/images/minji-default.png' },
+    { name: '민지', line: ['추우니까 바로 롱패딩 가야지', '그래도 첫 데이트인데 코트 입어야지', '상남자는 반팔이지'], image: '/images/minji-default.png' },
 ];
 
 
@@ -44,54 +42,29 @@ export default function Stage1() {
     // Create extendedScript based on selectedChoiceIndex
     const extendedScript = [...dialogScript];
     if (selectedChoiceIndex !== null) {
+        let minjiImg = '';
         let response = '';
-        let hjResponse = '';
-        let response2 = '';
         if (selectedChoiceIndex === 0) {
-            response = '누가봐도 개발자같이 생기셨네요 ㅎㅎ';
-            hjResponse = '그런 말 처음 들어봐요 😱';
-            response2 = '나도 보자마자 그 생각했어';
+            minjiImg = '/images/minji-stage2-1-1.png';
+            response = '역시 뢍패딩이다...';
         } else if (selectedChoiceIndex === 1) {
-            response = '반가워요!! 주말에 뭐하세요??';
-            hjResponse = '(당황하며) 네 저요?? 일해요..🥲'
-            response2 = '그러면 다음에 같이 놀아요 ㅠㅠ';
+            minjiImg = '/images/minji-stage2-1-2.png';
+            response = '너무 춥다 >_<';
         } else if (selectedChoiceIndex === 2) {
-            response = '신기하게 생기셨네요!';
-            hjResponse = '네?? 😳'
-            response2 = '농담이에요 ㅎㅎㅎ';
+            minjiImg = '/images/minji-stage2-1-2.png';
+            response = '덥다 더워 ^^';
         }
 
         extendedScript.push({
             name: '민지',
             line: response,
-            image: '/images/minji-default.png',
+            image: minjiImg,
         });
 
         extendedScript.push({
-            name: '현중',
-            line: hjResponse,
-            image: '/images/hyeonjung-default.png',
-        });
-
-        if (selectedChoiceIndex == 0) {
-            extendedScript.push({
-                name: '빅민',
-                line: response2,
-                image: '/images/minji-default.png',
-            });
-        } else {
-            extendedScript.push({
-                name: '민지',
-                line: response2,
-                image: '/images/minji-default.png',
-            });
-        }
-
-
-        extendedScript.push({
-            name: '최팀장',
-            line: '자자 다들 앉아서 일들 합시다.',
-            image: '/images/woosik-default.png',
+            name: '민지',
+            line: '늦겠다!! 얼른 가야겠다.',
+            image: minjiImg,
         });
     }
 
@@ -106,7 +79,7 @@ export default function Stage1() {
         if (currentIndex < extendedScript.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
-            router.push('/stage2');
+            router.push('/stage2/step2');
         }
     };
 
@@ -131,11 +104,6 @@ export default function Stage1() {
 
     return (
         <>
-            {showEpisodeTitle && (
-                <div className="fixed inset-0 bg-black text-white z-[60] flex items-center justify-center text-4xl font-bold font-mono transition-opacity duration-1000">
-                    EPISODE 01. 첫만남
-                </div>
-            )}
             <div
                 className="min-h-screen bg-cover bg-center relative flex flex-col justify-end items-center"
                 style={{ backgroundImage: "url('/images/office-bg.png')" }}
@@ -165,13 +133,13 @@ export default function Stage1() {
                                         if (typeof window !== 'undefined') {
                                             if (idx === 0) {
                                                 localStorage.setItem('favorScore', '2');
-                                                setFloatingText('+2');
+                                                setFloatingText('+10');
                                             } else if (idx === 1) {
                                                 localStorage.setItem('favorScore', '10');
-                                                setFloatingText('+10');
+                                                setFloatingText('+20');
                                             } else if (idx === 2) {
                                                 localStorage.setItem('favorScore', '20');
-                                                setFloatingText('+20');
+                                                setFloatingText('+15');
                                             }
                                             setTimeout(() => setFloatingText(null), 1000);
                                         }
