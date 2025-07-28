@@ -27,7 +27,18 @@ export default function Stage1() {
       const timeout = setTimeout(() => {
         if (typingSoundRef.current) {
           typingSoundRef.current.currentTime = 0;
-          typingSoundRef.current.play();
+          const playPromise = typingSoundRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                setTimeout(() => {
+                  typingSoundRef.current?.pause();
+                }, 1000); // play for 1 second
+              })
+              .catch((error) => {
+                console.warn('Typing sound play failed:', error);
+              });
+          }
         }
         setDisplayedText((prev) => prev + sentences[currentSentence][charIndex]);
         setCharIndex((prev) => prev + 1);
@@ -53,7 +64,7 @@ export default function Stage1() {
   return (
     <div onClick={handleClick} className="min-h-screen bg-black text-white font-mono flex flex-col justify-center items-center px-6 py-20 text-lg tracking-wide space-y-6">
       <audio ref={clickSoundRef} src="/audio/click.wav" preload="auto" />
-      <audio ref={typingSoundRef} src="/audio/typing.mp3" preload="auto" />
+      <audio ref={typingSoundRef} src="/audio/typing.wav" preload="auto" />
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

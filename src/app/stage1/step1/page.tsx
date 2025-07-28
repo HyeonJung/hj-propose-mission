@@ -7,8 +7,8 @@ import FavorBar from '@/components/FavorBar';
 import FavorFloatingText from '@/components/FavorFloatingText';
 
 const dialogScript = [
-    { name: '죄우식', line: '자 다들 주목~~', image: '/images/woosik-default.png' },
-    { name: '죄우식', line: '오늘 지어소프트에서 개발자가 왔으니까 민지씨가 잘 챙겨줘요~', image: '/images/woosik-default.png' },
+    { name: '최팀장', line: '자 다들 주목~~', image: '/images/woosik-default.png' },
+    { name: '최팀장', line: '오늘 지어소프트에서 개발자가 왔으니까 민지씨가 잘 챙겨줘요~', image: '/images/woosik-default.png' },
     { name: '현중', line: '안녕하세요... 잘 부탁드립니다.', image: '/images/hyeonjung-default.png' },
     { name: '[SYSTEM]', line: '새로온 개발자 윤현중의 첫인상은?', image: '' },
     { name: '민지', line: ['(완전 개발자같이 생겼네;;)', '(첫눈에 반했다. 바로 꼬셔야겠다.)', '(신기하게 생겼다. 👽)'], image: '/images/minji-default.png' },
@@ -42,9 +42,9 @@ export default function Stage1() {
         let hjResponse = '';
         let response2 = '';
         if (selectedChoiceIndex === 0) {
-            response = '안녕하세요. 잘 부탁드립니다.';
-            hjResponse = '잘부탁드려요~';
-            response2 = '(자리로 가서 앉는다)';
+            response = '누가봐도 개발자같이 생기셨네요 ㅎㅎ';
+            hjResponse = '그런 말 처음 들어봐요 😱';
+            response2 = '나도 보자마자 그 생각했어';
         } else if (selectedChoiceIndex === 1) {
             response = '반가워요!! 주말에 뭐하세요??';
             hjResponse = '(당황하며) 네 저요?? 일해요..🥲'
@@ -67,10 +67,25 @@ export default function Stage1() {
             image: '/images/hyeonjung-default.png',
         });
 
+        if (selectedChoiceIndex == 0) {
+            extendedScript.push({
+                name: '빅민',
+                line: response2,
+                image: '/images/minji-default.png',
+            });
+        } else {
+            extendedScript.push({
+                name: '민지',
+                line: response2,
+                image: '/images/minji-default.png',
+            });
+        }
+
+
         extendedScript.push({
-            name: '민지',
-            line: response2,
-            image: '/images/minji-default.png',
+            name: '최팀장',
+            line: '자자 다들 앉아서 일들 합시다.',
+            image: '/images/woosik-default.png',
         });
     }
 
@@ -78,6 +93,10 @@ export default function Stage1() {
 
     const handleNext = () => {
         if (Array.isArray(currentLine.line)) return;
+
+        const clickSound = new Audio('/audio/click.wav');
+        clickSound.play();
+
         if (currentIndex < extendedScript.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
@@ -93,6 +112,8 @@ export default function Stage1() {
             const interval = setInterval(() => {
                 if (i < fullText.length) {
                     setDisplayedText(fullText.slice(0, i + 1));
+                    const typingSound = new Audio('/audio/typing.wav');
+                    typingSound.play();
                     i++;
                 } else {
                     clearInterval(interval);
@@ -108,12 +129,11 @@ export default function Stage1() {
             style={{ backgroundImage: "url('/images/office-bg.png')" }}
         >
             <div
-                className={`fixed inset-0 bg-black transition-opacity duration-1000 z-50 pointer-events-none ${
-                    showOverlay ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`fixed inset-0 bg-black transition-opacity duration-1000 z-50 pointer-events-none ${showOverlay ? 'opacity-100' : 'opacity-0'
+                    }`}
             />
             {!showOverlay && (<FavorBar />)}
-            
+
             {floatingText && <FavorFloatingText text={floatingText} />}
             <div
                 className="absolute bottom-0 left-0 right-0 text-white bg-black/70 px-8 py-6 text-lg font-mono min-h-[220px] pt-[80px]"
@@ -126,6 +146,9 @@ export default function Stage1() {
                             <button
                                 key={idx}
                                 onClick={() => {
+                                    const clickSound = new Audio('/audio/click.wav');
+                                    clickSound.play();
+
                                     // favorScore: store in localStorage immediately
                                     if (typeof window !== 'undefined') {
                                         if (idx === 0) {
